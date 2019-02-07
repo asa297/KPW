@@ -54,14 +54,14 @@ export const DeleteList = (status, data, key) => async dispatch => {
   }
 };
 
-export const ChangeChecked = (status, data, key) => dispatch => {
+export const ChangeChecked = (status, data, key, checked) => dispatch => {
   if (status === "SINGLE") {
     const index = data.findIndex(value => value.key === key);
     data[index].checked = !data[index].checked;
     dispatch({ type: actionTypes.CHANGE_SINGLE_CHECKED, payload: data });
   } else if (status === "ALL") {
     data = data.map(value => {
-      value.checked = !value.checked;
+      value.checked = checked;
       return value;
     });
     dispatch({ type: actionTypes.CHANGE_ALL_CHECKED, payload: data });

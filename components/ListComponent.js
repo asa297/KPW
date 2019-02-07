@@ -19,12 +19,13 @@ class ListComponent extends React.PureComponent {
     }
   }
 
-  _onChangeCheckBox(item, status) {
+  _onChangeCheckBox(item, status, event) {
     if (status === "SINGLE") {
       const { key } = item;
       this.props.ChangeChecked(status, this.props.ListReducer, key);
     } else if (status === "ALL") {
-      this.props.ChangeChecked(status, this.props.ListReducer, null);
+      const { checked } = event.target;
+      this.props.ChangeChecked(status, this.props.ListReducer, null, checked);
     }
   }
 
@@ -37,7 +38,9 @@ class ListComponent extends React.PureComponent {
       <ListComponentContainer>
         <FlexContainer>
           <HeaderBlock>
-            <CheckBox onChange={() => this._onChangeCheckBox(null, "ALL")} />
+            <CheckBox
+              onChange={checked => this._onChangeCheckBox(null, "ALL", checked)}
+            />
             <Button type="danger" onClick={() => this._onDelete(null, "ALL")}>
               Delete
             </Button>
